@@ -34,7 +34,7 @@ if [ -f "/etc/arch-release" ]; then
   # nvim / AstroNvim
   mv ~/.config/nvim ~/.config/nvimbackup
   git clone https://github.com/AstroNvim/AstroNvim ~/.config/nvim
-  sudo pacman -Sy ripgrep lazygit NCDU htop python node npm
+  sudo pacman -Sy ripgrep lazygit NCDU htop python node npm neovide
   nvim +PackerSync
 
   # Reminder to change the .zshrc or whatever profle to focus on whatever vk_version your using.
