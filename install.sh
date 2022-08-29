@@ -39,7 +39,7 @@ if [ -f "/etc/arch-release" ]; then
 
   # Reminder to change the .zshrc or whatever profle to focus on whatever vk_version your using.
   # vulkansdk
-  pacman -Sy gcc g++
+  sudo pacman -Sy gcc g++
   sudo pacman -Sy base-devel glm libpng wayland libpciaccess libx11 libxpresent libxcb xcb-util libxrandr xcb-util-keysyms xcb-util-wm lz4 zstd python-distlib qt5-base
   mkdir ~/vulkan/
   vk_version=1.3.224.1
