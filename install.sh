@@ -73,5 +73,4 @@ fi
 #  (_)__/\___/_//_/_//_/\_, / 
 #                      /___/  
 
-cp ./.config/nvim/lua/user/init.lua ~/.config/nvim/lua/user/init.lua
-cp ./.config/background ~/.config/background
+cp -r .config/* ~/.config/
