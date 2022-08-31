@@ -38,29 +38,35 @@ if [ -f "/etc/arch-release" ]; then
     fi
   done
 
-  # nvim / AstroNvim
-  mv ~/.config/nvim ~/.config/nvimbackup
-  git clone https://github.com/AstroNvim/AstroNvim ~/.config/nvim
-  nvim +PackerSync
+  for f in scripts/*.sh; 
+  do 
+    echo "Processing $f file...";
+    bash $f
+  done
 
-  # Reminder to change the .zshrc or whatever profle to focus on whatever vk_version your using.
-  # vulkansdk
-  mkdir ~/vulkan/
-  vk_version=1.3.224.1
-  wget -o ~/vulkan/vulkansdk.tar.gz https://sdk.lunarg.com/sdk/download/$vk_version/linux/vulkansdk-linux-x86_64-$vk_version.tar.gz
-  tar -xf ~/vulkan/vulkansdk.tar.gz
-  chmod +x ~/vulkan/$vk_version/vulkansdk
-  ~/vulkan/$vk_version/vulkansdk -d all
-  
-  # shaderc
-  git clone https://github.com/google/shaderc.git
-  python shaderc/utils/git-sync-deps
-  cmake -S shaderc -B shaderc/build
-  cmake --build shaderc/build
-  cmake --install shaderc/build
-
-  # rust
-  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+  # # nvim / AstroNvim
+  # mv ~/.config/nvim ~/.config/nvimbackup
+  # git clone https://github.com/AstroNvim/AstroNvim ~/.config/nvim
+  # nvim +PackerSync
+  #
+  # # Reminder to change the .zshrc or whatever profle to focus on whatever vk_version your using.
+  # # vulkansdk
+  # mkdir ~/vulkan/
+  # vk_version=1.3.224.1
+  # wget -o ~/vulkan/vulkansdk.tar.gz https://sdk.lunarg.com/sdk/download/$vk_version/linux/vulkansdk-linux-x86_64-$vk_version.tar.gz
+  # tar -xf ~/vulkan/vulkansdk.tar.gz
+  # chmod +x ~/vulkan/$vk_version/vulkansdk
+  # ~/vulkan/$vk_version/vulkansdk -d all
+  # 
+  # # shaderc
+  # git clone https://github.com/google/shaderc.git
+  # python shaderc/utils/git-sync-deps
+  # cmake -S shaderc -B shaderc/build
+  # cmake --build shaderc/build
+  # cmake --install shaderc/build
+  #
+  # # rust
+  # curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 
 else
   echo "This installer only works with arch"
