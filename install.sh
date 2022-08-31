@@ -1,15 +1,12 @@
+#!/bin/bash
 #     ______       ____
 #    / __/ /  ___ / / /
 #   _\ \/ _ \/ -_) / / 
 #  /___/_//_/\__/_/_/  
 #                      
 
-cp ./.zshrc ~/.zshrc
-cp ./.bashrc ~/.bashrc
-cp ./.bash_profile ~/.bash_profile
-cp ./.profile ~/.profile
-
-
+# Purposfully not -r here since we don't want to recurse over any directories (e.g. .git)
+cp ./.* ~/ 
 
 #    __  ____  _ ___ __      
 #   / / / / /_(_) (_) /___ __
@@ -26,21 +23,28 @@ cp ./rm_gh_workflows.sh ~/rm_gh_workflows.sh
 #                          /___/         
 
 if [ -f "/etc/arch-release" ]; then
-  # core 
-  sudo pacman -Syu
-  sudo pacman -Sy git cmake ninja nvim
-  sudo pacman -Sy obsidian obs-studio telegram-desktop
   
+  ARCH_PACKAGES="git cmake ninja nvim obsidian obs-studio telegram-desktop rip lazygit ncdu \
+    htop python python-pip node npm neovide base-devel glm libpng wayland libpciaccess libx11 \
+    libxpresent libxcb xcb-util libxrandr xcb-util-keysyms xcb-util-wm lz4 zstd python-distlib \
+    qt5-base gcc g++"
+
+  sudo pacman -Syu
+
+  for package in $ARCH_PACKAGES
+  do
+    if ! pacman -Qi "$package" > /dev/null; then
+      sudo pacman -Sy "$package"
+    fi
+  done
+
   # nvim / AstroNvim
   mv ~/.config/nvim ~/.config/nvimbackup
   git clone https://github.com/AstroNvim/AstroNvim ~/.config/nvim
-  sudo pacman -Sy ripgrep lazygit NCDU htop python node npm neovide
   nvim +PackerSync
 
   # Reminder to change the .zshrc or whatever profle to focus on whatever vk_version your using.
   # vulkansdk
-  sudo pacman -Sy gcc g++
-  sudo pacman -Sy base-devel glm libpng wayland libpciaccess libx11 libxpresent libxcb xcb-util libxrandr xcb-util-keysyms xcb-util-wm lz4 zstd python-distlib qt5-base
   mkdir ~/vulkan/
   vk_version=1.3.224.1
   wget -o ~/vulkan/vulkansdk.tar.gz https://sdk.lunarg.com/sdk/download/$vk_version/linux/vulkansdk-linux-x86_64-$vk_version.tar.gz
